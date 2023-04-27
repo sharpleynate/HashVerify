@@ -1,0 +1,22 @@
+import hashlib
+
+def calculate_hash(file_path):
+    """Calculates the SHA-256 hash value of a file."""
+    hash_value = hashlib.sha256()
+    with open(file_path, "rb") as file:
+        data = file.read()
+        hash_value.update(data)
+    return hash_value.hexdigest()
+
+def verify_integrity(file_path, original_hash):
+    """Verifies the integrity of a file by comparing its hash value with the original hash value."""
+    calculated_hash = calculate_hash(file_path)
+    if calculated_hash == original_hash:
+        print("File integrity verified.")
+    else:
+        print("File has been modified or tampered with.")
+
+# Example usage
+original_hash = "e37d6a9aa8bba0ca34c601d74fd140c11eb2e62ed187c10b0ef9f9cf9d57ec29"
+file_path = "example_file.txt"
+verify_integrity(file_path, original_hash)
